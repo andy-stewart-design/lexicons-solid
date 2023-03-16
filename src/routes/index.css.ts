@@ -1,19 +1,20 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "~/app.css";
 import { flexCenter } from "~/mixins.css";
-import { vars } from "~/theme.css";
+import { theme } from "~/theme.css";
 
 export const icons_container = style({
   display: "grid",
   gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
   gap: 16,
-  padding: vars.space[4],
+  padding: theme.space[4],
 });
 
 export const ui_container = style([
   flexCenter,
   {
     gap: 4,
-    padding: vars.space[4],
+    padding: theme.space[4],
     paddingBottom: 0,
   },
 ]);
@@ -31,14 +32,14 @@ export const radio_item = style({
   padding: "6px 12px",
   userSelect: "none",
   fontVariantNumeric: "tabular-nums",
-  ":hover": {
-    background: "rgba(0 0 255 / 0.1)",
-  },
+  // ":hover": {
+  //   background: vars.,
+  // },
   selectors: {
     "&[aria-checked='true']": {
-      background: vars.colors.black,
-      color: "white",
-      borderColor: vars.colors.black,
+      background: vars.foreground,
+      color: vars.background,
+      borderColor: vars.foreground,
     },
   },
 });

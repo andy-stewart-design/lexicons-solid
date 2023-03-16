@@ -45,13 +45,14 @@ export default function Home() {
 
   const [activeSize, setActiveSize] = createSignal(24);
   const [strokeWidth, setStrokeWidth] = createSignal(1.5);
+  const [isRounded, setIsRounded] = createSignal(false);
   const [isScaled, setIsScaled] = createSignal(false);
 
   const filteredIcons = createMemo(() => {
     if (icons() === undefined) return;
     return icons()!.filter((icon) => icon.size === Number(activeSize()));
   });
-  const scale_multiplier = createMemo(() => (isScaled() ? 1.5 : 1));
+  const scaleMultiplier = createMemo(() => (isScaled() ? 1.5 : 1));
 
   const update_strokeWidth = (e: Event) => {
     const target = e.target as HTMLInputElement;
@@ -87,19 +88,21 @@ export default function Home() {
             step={0.1}
             onInput={(e) => update_strokeWidth(e)}
           />
+          <button onclick={() => setIsRounded((b) => (b = !b))}>
+            {isRounded() ? "Round" : "Square"}
+          </button>
           <button onclick={() => setIsScaled((b) => (b = !b))}>Scale</button>
         </section>
         <section>
           <ul class={icons_container}>
             <For each={filteredIcons()}>
               {(icon) => (
-                <Icon.Card icon={icon}>
-                  <Icon.SVG
-                    icon={icon}
-                    scaleMultiplier={scale_multiplier}
-                    strokeWidth={strokeWidth}
-                  />
-                </Icon.Card>
+                <Icon.Card
+                  icon={icon}
+                  scaleMultiplier={scaleMultiplier}
+                  strokeWidth={strokeWidth}
+                  isRounded={isRounded}
+                ></Icon.Card>
               )}
             </For>
           </ul>

@@ -1,53 +1,66 @@
-import { Accessor, For, ParentComponent } from "solid-js";
+import { Accessor, Component, For } from "solid-js";
+import { copySVG } from "~/utils/svg";
 import * as styles from "./icon.css";
 
-interface IconData {
+export interface IconData {
   name: string;
   size: number;
   paths: string[];
   keywords: string[];
 }
 
-interface IconSVG {
+interface IconProps {
   icon: IconData;
   strokeWidth: Accessor<number>;
   scaleMultiplier: Accessor<number>;
+  isRounded: Accessor<boolean>;
 }
 
-interface IconCardProps {
-  icon: IconData;
-}
+const IconCard: Component<IconProps> = (props) => {
+  return (
+    <div class={styles.card}>
+      <div class={styles.icon_container}>
+        <Icon.SVG
+          icon={props.icon}
+          scaleMultiplier={props.scaleMultiplier}
+          strokeWidth={props.strokeWidth}
+          isRounded={props.isRounded}
+        />
+      </div>
+      <p class={styles.text}>{props.icon.name.split("-").join(" ")}</p>
+      <div class={styles.overlay}>
+        <button class={styles.overlay_btn} onClick={() => copySVG(props.icon)}>
+          Copy
+        </button>
+        <button class={styles.overlay_btn} onClick={() => alert("hello")}>
+          Download
+        </button>
+      </div>
+    </div>
+  );
+};
 
-const SVGIcon = ({ icon, strokeWidth, scaleMultiplier }: IconSVG) => {
+const SVGIcon: Component<IconProps> = (props) => {
   return (
     <svg
-      width={icon.size * scaleMultiplier()}
-      height={icon.size * scaleMultiplier()}
-      viewBox={`0 0 ${icon.size} ${icon.size}`}
+      width={props.icon.size * props.scaleMultiplier()}
+      height={props.icon.size * props.scaleMultiplier()}
+      viewBox={`0 0 ${props.icon.size} ${props.icon.size}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <For each={icon.paths}>
+      <For each={props.icon.paths}>
         {(path) => (
           <path
             d={path}
             stroke="currentColor"
-            fill="none"
-            stroke-width={strokeWidth()}
+            stroke-width={props.strokeWidth()}
+            stroke-linecap={props.isRounded() ? "round" : "butt"}
             stroke-linejoin="round"
           />
         )}
       </For>
     </svg>
-  );
-};
-
-const IconCard: ParentComponent<IconCardProps> = (props) => {
-  return (
-    <div class={styles.card}>
-      <div class={styles.iconContainer}>{props.children}</div>
-      <p class={styles.text}>{props.icon.name.split("-").join(" ")}</p>
-    </div>
   );
 };
 
