@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --black: 13 13 15;
+    --gray-100: 242 241 236;
+    --gray-800: 37 37 41;
+    --gray-900: 20 20 24;
+  }
+
+  html {
+    --background: var(--gray-100);
+    --foreground: var(--black);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html {
+      --background: var(--black);
+      --foreground: var(--gray-100);
+    }
+  }
+}

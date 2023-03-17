@@ -1,14 +1,8 @@
 import { Title, useRouteData } from "solid-start";
-import { createMemo, createResource, createSignal, For } from "solid-js";
+import { createResource, createSignal, For } from "solid-js";
 import { icons_db } from "~/data/icons";
 import { Radio } from "~/components/Radio";
 import { Icon } from "~/components/Icon";
-import {
-  radio_group,
-  radio_item,
-  ui_container,
-  icons_container,
-} from "./index.css";
 
 interface Icon {
   name: string;
@@ -48,11 +42,11 @@ export default function Home() {
   const [isRounded, setIsRounded] = createSignal(false);
   const [isScaled, setIsScaled] = createSignal(false);
 
-  const filteredIcons = createMemo(() => {
+  const filteredIcons = () => {
     if (icons() === undefined) return;
     return icons()!.filter((icon) => icon.size === Number(activeSize()));
-  });
-  const scaleMultiplier = createMemo(() => (isScaled() ? 1.5 : 1));
+  };
+  const scaleMultiplier = () => (isScaled() ? 1.5 : 1);
 
   const update_strokeWidth = (e: Event) => {
     const target = e.target as HTMLInputElement;
@@ -63,22 +57,15 @@ export default function Home() {
     <>
       <Title>Lexicons | OSS Icon Library</Title>
       <main>
-        <section class={ui_container}>
+        <section class="flex justify-center items-center gap-8 p-4 pb-0">
           <Radio.Group
-            class={radio_group}
             value={activeSize}
             setValue={setActiveSize}
             defaultItem={3}
           >
-            <Radio.Item class={radio_item} defaultValue={16}>
-              16
-            </Radio.Item>
-            <Radio.Item class={radio_item} defaultValue={20}>
-              20
-            </Radio.Item>
-            <Radio.Item class={radio_item} defaultValue={24}>
-              24
-            </Radio.Item>
+            <Radio.Item defaultValue={16}>16</Radio.Item>
+            <Radio.Item defaultValue={20}>20</Radio.Item>
+            <Radio.Item defaultValue={24}>24</Radio.Item>
           </Radio.Group>
           <input
             type="range"
@@ -94,7 +81,7 @@ export default function Home() {
           <button onclick={() => setIsScaled((b) => (b = !b))}>Scale</button>
         </section>
         <section>
-          <ul class={icons_container}>
+          <ul class="grid grid-cols-icons gap-4 p-4">
             <For each={filteredIcons()}>
               {(icon) => (
                 <Icon.Card

@@ -1,6 +1,5 @@
 import { Accessor, Component, For } from "solid-js";
 import { copySVG } from "~/utils/svg";
-import * as styles from "./icon.css";
 
 export interface IconData {
   name: string;
@@ -18,8 +17,8 @@ interface IconProps {
 
 const IconCard: Component<IconProps> = (props) => {
   return (
-    <div class={styles.card}>
-      <div class={styles.icon_container}>
+    <div class="relative flex flex-col p-4 border border-foreground/10 rounded min-h-[240px] hover:border-foreground hover:bg-white/30 dark:hover:bg-gray-800">
+      <div class="flex-center grow">
         <Icon.SVG
           icon={props.icon}
           scaleMultiplier={props.scaleMultiplier}
@@ -27,12 +26,20 @@ const IconCard: Component<IconProps> = (props) => {
           isRounded={props.isRounded}
         />
       </div>
-      <p class={styles.text}>{props.icon.name.split("-").join(" ")}</p>
-      <div class={styles.overlay}>
-        <button class={styles.overlay_btn} onClick={() => copySVG(props.icon)}>
-          Copy
+      <p class="text-sm text-center capitalize opacity-50">
+        {props.icon.name.split("-").join(" ")}
+      </p>
+      <div class="group absolute top-1 left-1 w-[calc(100%-8px)] h-[calc(100%-8px)] flex flex-col gap-1.5 p-1 opacity-0 backdrop-blur-sm hover:opacity-100">
+        <button
+          class="grow font-medium text-sm invisible bg-gray-400/30 group-hover:visible hover:bg-gray-400/80"
+          onClick={() => copySVG(props.icon)}
+        >
+          Copy SVG
         </button>
-        <button class={styles.overlay_btn} onClick={() => alert("hello")}>
+        <button
+          class="grow font-medium text-sm invisible bg-gray-400/30 group-hover:visible hover:bg-gray-400/80"
+          onClick={() => alert("hello")}
+        >
           Download
         </button>
       </div>

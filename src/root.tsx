@@ -12,17 +12,16 @@ import {
   Title,
 } from "solid-start";
 import "./app.css";
-import "./reset.css";
 
 export default function Root() {
   return (
-    <Html lang="en">
+    <Html lang="en" style={{ "-webkit-tap-highlight-color": "rgb(0 0 0 / 0)" }}>
       <Head>
         <Title>SolidStart - Bare</Title>
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Body>
+      <Body class="bg-background text-foreground antialiased">
         <Suspense>
           <ErrorBoundary>
             <Routes>
