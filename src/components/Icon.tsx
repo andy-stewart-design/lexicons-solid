@@ -17,7 +17,7 @@ interface IconProps {
 
 const IconCard: Component<IconProps> = (props) => {
   return (
-    <div class="relative flex flex-col p-4 border border-foreground/10 rounded min-h-[240px] hover:border-foreground hover:bg-white/30 dark:hover:bg-gray-800">
+    <div class="group relative flex flex-col p-4 border border-foreground/10 rounded min-h-[240px] hover:border-foreground hover:bg-white/30 dark:hover:bg-gray-800">
       <div class="flex-center grow">
         <Icon.SVG
           icon={props.icon}
@@ -29,7 +29,7 @@ const IconCard: Component<IconProps> = (props) => {
       <p class="text-sm text-center capitalize opacity-50">
         {props.icon.name.split("-").join(" ")}
       </p>
-      <div class="group absolute top-1 left-1 w-[calc(100%-8px)] h-[calc(100%-8px)] flex flex-col gap-1.5 p-1 opacity-0 backdrop-blur-sm hover:opacity-100">
+      <div class="absolute top-1 left-1 w-[calc(100%-8px)] h-[calc(100%-8px)] flex flex-col gap-1.5 p-1 opacity-0 backdrop-blur-sm group-hover:opacity-100">
         <button
           class="grow font-medium text-sm invisible bg-gray-400/30 group-hover:visible hover:bg-gray-400/80"
           onClick={() => copySVG(props.icon)}

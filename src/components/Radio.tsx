@@ -114,7 +114,7 @@ const RadioItem: ParentComponent<RadioItemProps> = (props) => {
       id={`radiogroup-${groupAriaID}-radio-${uuid}`}
       role="radio"
       aria-checked={isSelected()}
-      class="border border-foreground/10 py-2 px-3 select-none font-medium tabular-nums hover:border-foreground aria-checked:bg-foreground aria-checked:text-background rounded"
+      class="border border-foreground/10 py-2 px-3 select-none font-medium tabular-nums cursor-pointer hover:border-foreground aria-checked:bg-foreground aria-checked:text-background rounded"
     >
       {props.children}
     </div>
