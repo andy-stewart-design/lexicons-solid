@@ -30,6 +30,12 @@ module.exports = {
         ".flex-center": {
           "@apply flex justify-center items-center": {},
         },
+        ".border-gradient-mask": {
+          "-webkit-mask":
+            "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+          "-webkit-mask-composite": "xor",
+          "mask-composite": "exclude",
+        },
       });
     },
   ],

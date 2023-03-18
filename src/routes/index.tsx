@@ -42,6 +42,12 @@ export default function Home() {
   const [isRounded, setIsRounded] = createSignal(false);
   const [isScaled, setIsScaled] = createSignal(false);
 
+  const maxStrokeWidth = () => {
+    if (activeSize() > 24) return 3;
+    else if (activeSize() <= 16) return 1.5;
+    else return 2;
+  };
+
   const filteredIcons = () => {
     if (icons() === undefined) return;
     return icons()!.filter((icon) => icon.size === Number(activeSize()));
@@ -66,12 +72,13 @@ export default function Home() {
             <Radio.Item defaultValue={16}>16</Radio.Item>
             <Radio.Item defaultValue={20}>20</Radio.Item>
             <Radio.Item defaultValue={24}>24</Radio.Item>
+            <Radio.Item defaultValue={32}>32</Radio.Item>
           </Radio.Group>
           <input
             type="range"
             value={strokeWidth()}
             min={1}
-            max={2}
+            max={maxStrokeWidth()}
             step={0.1}
             onInput={(e) => update_strokeWidth(e)}
           />

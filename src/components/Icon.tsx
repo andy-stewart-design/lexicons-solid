@@ -17,7 +17,7 @@ interface IconProps {
 
 const IconCard: Component<IconProps> = (props) => {
   return (
-    <div class="group relative flex flex-col p-4 border border-foreground/10 rounded min-h-[240px] hover:border-foreground hover:bg-white/30 dark:hover:bg-gray-800">
+    <div class="group relative flex flex-col p-4 border border-foreground/10 rounded min-h-[240px] hover:bg-blue-700/20 before:absolute before:-top-px before:-left-px before:-right-px before:-bottom-px before:inset-0 before:p-px before:bg-gradient-to-br before:from-blue-600 before:to-fuchsia-600 before:border-gradient-mask before:rounded before:opacity-0 before:transition-opacity ease-out hover:before:opacity-100">
       <div class="flex-center grow">
         <Icon.SVG
           icon={props.icon}
@@ -29,15 +29,15 @@ const IconCard: Component<IconProps> = (props) => {
       <p class="text-sm text-center capitalize opacity-50">
         {props.icon.name.split("-").join(" ")}
       </p>
-      <div class="absolute top-1 left-1 w-[calc(100%-8px)] h-[calc(100%-8px)] flex flex-col gap-1.5 p-1 opacity-0 backdrop-blur-sm group-hover:opacity-100">
+      <div class="absolute top-1 left-1 w-[calc(100%-8px)] h-[calc(100%-8px)] flex flex-col gap-1.5 p-1 opacity-0 backdrop-blur-sm  transition-opacity ease-out group-hover:opacity-100">
         <button
-          class="grow font-medium text-sm invisible bg-gray-400/30 group-hover:visible hover:bg-gray-400/80"
+          class="grow font-medium text-sm invisible bg-foreground/10 group-hover:visible hover:bg-foreground/30"
           onClick={() => copySVG(props.icon)}
         >
           Copy SVG
         </button>
         <button
-          class="grow font-medium text-sm invisible bg-gray-400/30 group-hover:visible hover:bg-gray-400/80"
+          class="grow font-medium text-sm invisible bg-foreground/10 group-hover:visible hover:bg-foreground/25"
           onClick={() => alert("hello")}
         >
           Download
