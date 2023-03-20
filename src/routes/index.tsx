@@ -3,6 +3,7 @@ import { createResource, createSignal, For } from "solid-js";
 import { icons_db } from "~/data/icons";
 import { Radio } from "~/components/Radio";
 import { Icon } from "~/components/Icon";
+import { addToast, dismissToast, toasts } from "~/stores/toast";
 
 interface Icon {
   name: string;
@@ -86,6 +87,7 @@ export default function Home() {
             {isRounded() ? "Round" : "Square"}
           </button>
           <button onclick={() => setIsScaled((b) => (b = !b))}>Scale</button>
+          <button onclick={() => addToast()}>Add Toast</button>
         </section>
         <section>
           <ul class="grid grid-cols-icons gap-4 p-4">
@@ -102,6 +104,19 @@ export default function Home() {
           </ul>
         </section>
       </main>
+      <div class="absolute top-0 left-0">
+        <For each={toasts}>
+          {(toast) => {
+            console.log("creating " + toast.message);
+            return (
+              <div>
+                {toast.message}{" "}
+                <button onClick={() => dismissToast(toast.id)}>X</button>
+              </div>
+            );
+          }}
+        </For>
+      </div>
     </>
   );
 }

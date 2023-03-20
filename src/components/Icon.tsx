@@ -1,5 +1,5 @@
 import { Accessor, Component, For } from "solid-js";
-import { copySVG } from "~/utils/svg";
+import { copySVG, downloadSVG } from "~/utils/svg";
 
 export interface IconData {
   name: string;
@@ -38,7 +38,7 @@ const IconCard: Component<IconProps> = (props) => {
         </button>
         <button
           class="grow font-medium text-sm invisible bg-foreground/10 group-hover:visible hover:bg-foreground/25"
-          onClick={() => alert("hello")}
+          onClick={() => downloadSVG(props.icon)}
         >
           Download
         </button>
