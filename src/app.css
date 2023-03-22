@@ -8,6 +8,7 @@
     --gray-100: 242 241 236;
     --gray-800: 37 37 41;
     --gray-900: 20 20 24;
+    --toast-ease: cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   html {
@@ -23,6 +24,29 @@
   }
 }
 
+.toast-enter-active {
+  translate: 0 30px;
+  opacity: 0;
+  transition: translate 0.3s var(--toast-ease), opacity 0.3s var(--toast-ease);
+}
+
+.toast-enter-to {
+  translate: 0px 0;
+  opacity: 1;
+}
+
 .toast-move {
   transition: transform 0.2s;
+}
+
+.toast-exit-active {
+  scale: 1;
+  opacity: 1;
+  transition: scale 0.3s var(--toast-ease),
+    opacity 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.toast-exit-to {
+  scale: 0.9;
+  opacity: 0;
 }

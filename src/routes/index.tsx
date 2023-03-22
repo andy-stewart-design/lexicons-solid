@@ -105,46 +105,47 @@ export default function Home() {
           </ul>
         </section>
       </main>
-      <div class="absolute bottom-0 right-0">
-        <TransitionGroup
-          name="toast"
-          onEnter={(el, done) => {
-            const a = el.animate(
-              [
-                { opacity: 0, translateX: 30 },
-                { opacity: 1, translateX: 0 },
-              ],
-              {
-                duration: 200,
-              }
-            );
-            a.finished.then(done);
-          }}
-          onExit={(el, done) => {
-            const a = el.animate(
-              [
-                { opacity: 1, translateX: 0 },
-                { opacity: 0, translateX: 30 },
-              ],
-              {
-                duration: 200,
-              }
-            );
-            a.finished.then(done);
-          }}
-        >
-          <For each={toasts}>
-            {(toast) => {
-              console.log("creating " + toast.message);
-              return (
-                <div>
-                  {toast.message}{" "}
-                  <button onClick={() => dismissToast(toast.id)}>X</button>
-                </div>
-              );
+      <div class="fixed bottom-0 left-1/2 -translate-x-1/2 pb-8">
+        <div class="flex flex-col items-center gap-2">
+          <TransitionGroup
+            name="toast"
+            onEnter={(el, done) => {
+              const a = el.animate([], { duration: 200 });
+              a.finished.then(done);
             }}
-          </For>
-        </TransitionGroup>
+            onExit={(el, done) => {
+              const a = el.animate([], { duration: 200 });
+              a.finished.then(done);
+            }}
+          >
+            <For each={toasts}>
+              {(toast) => {
+                console.log("creating " + toast.message);
+                return (
+                  <button onClick={() => dismissToast(toast.id)}>
+                    <div class="flex items-center gap-2 font-medium text-black bg-white shadow-md rounded">
+                      <div class="py-2 pl-4 pr-2">{toast.message} </div>
+                      <div class="border-l border-black/10 px-3">
+                        <svg
+                          viewBox="0 0 16 16"
+                          width="16"
+                          height="16"
+                          fill="none"
+                        >
+                          <path
+                            d="M 4 4 L 13 13 M 4 13 L 13 4"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </button>
+                );
+              }}
+            </For>
+          </TransitionGroup>
+        </div>
       </div>
     </>
   );
