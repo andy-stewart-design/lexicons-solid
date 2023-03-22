@@ -1,5 +1,6 @@
 import { Title, useRouteData } from "solid-start";
 import { createResource, createSignal, For } from "solid-js";
+import { TransitionGroup } from "solid-transition-group";
 import { icons_db } from "~/data/icons";
 import { Radio } from "~/components/Radio";
 import { Icon } from "~/components/Icon";
@@ -104,18 +105,46 @@ export default function Home() {
           </ul>
         </section>
       </main>
-      <div class="absolute top-0 left-0">
-        <For each={toasts}>
-          {(toast) => {
-            console.log("creating " + toast.message);
-            return (
-              <div>
-                {toast.message}{" "}
-                <button onClick={() => dismissToast(toast.id)}>X</button>
-              </div>
+      <div class="absolute bottom-0 right-0">
+        <TransitionGroup
+          name="toast"
+          onEnter={(el, done) => {
+            const a = el.animate(
+              [
+                { opacity: 0, translateX: 30 },
+                { opacity: 1, translateX: 0 },
+              ],
+              {
+                duration: 200,
+              }
             );
+            a.finished.then(done);
           }}
-        </For>
+          onExit={(el, done) => {
+            const a = el.animate(
+              [
+                { opacity: 1, translateX: 0 },
+                { opacity: 0, translateX: 30 },
+              ],
+              {
+                duration: 200,
+              }
+            );
+            a.finished.then(done);
+          }}
+        >
+          <For each={toasts}>
+            {(toast) => {
+              console.log("creating " + toast.message);
+              return (
+                <div>
+                  {toast.message}{" "}
+                  <button onClick={() => dismissToast(toast.id)}>X</button>
+                </div>
+              );
+            }}
+          </For>
+        </TransitionGroup>
       </div>
     </>
   );
